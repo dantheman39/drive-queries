@@ -9,9 +9,6 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 
-parent = "BrazilianCharts"
-# parent_id = "1P4VFE3pUguDrfBW9ucpYm_Vf3SWULDX_"
-
 
 def main():
     """Shows basic usage of the Drive v3 API.
@@ -20,6 +17,8 @@ def main():
 
     try:
         service = create_drive_service()
+
+        parent = "BrazilianCharts"
         parent_folder = get_folder(name=parent, service=service)
         parent_id = parent_folder['id']
 
@@ -27,7 +26,6 @@ def main():
             print(u'{0} ({1})'.format(item['name'], item['id']))
 
     except HttpError as error:
-        # TODO(developer) - Handle errors from drive API.
         print(f'An error occurred: {error}')
 
 
@@ -83,12 +81,6 @@ def iter_folder_files(folder_parent_id: str, service):
             return None
         for item in items:
             yield item
-            # if item['name'] == parent:
-            #     try:
-            #         get_results = service.files().get(fileId=item['id'], fields="modifiedByMeTime, kind, id, name, mimeType").execute()
-            #         print(get_results)
-            #     except HttpError as error:
-            #         print(f'Error during get: {error}')
  
 
 if __name__ == '__main__':
